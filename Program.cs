@@ -1,5 +1,7 @@
 ﻿
 
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
 namespace ConsoleApp2
 {
     internal class Program
@@ -67,6 +69,9 @@ namespace ConsoleApp2
                 Console.WriteLine("8. Search by Department");
                 Console.WriteLine("9. Billing Report");
                 Console.WriteLine("10. Exit");
+               
+                // PART 1 — Error Handling ( try-catch )
+
                 int choice = 0;
                 try
                 {
@@ -171,6 +176,9 @@ namespace ConsoleApp2
 
                             if (Console.ReadLine().ToLower() == "yes")
                             {
+
+                                // PART 1 — Error Handling ( try-catch )
+
                                 double fee = 0;
                                 try
                                 {
@@ -183,6 +191,8 @@ namespace ConsoleApp2
 
                                 total += fee;
                             }
+                            
+                            //PART 1 — Error Handling( try-catch )
 
                             Console.Write("Medication charges? (yes/no): ");
                             if (Console.ReadLine().ToLower() == "yes")
@@ -198,6 +208,7 @@ namespace ConsoleApp2
                                 }
                                 total += meds;
                             }
+
 
                             billingAmount[index] += total;
 
@@ -333,6 +344,9 @@ namespace ConsoleApp2
                     case 9:
                         Console.WriteLine("1. Total System");
                         Console.WriteLine("2. Individual");
+
+
+                        // PART 1 — Error Handling ( try-catch )
 
                         int billingOption = 0;
                         try

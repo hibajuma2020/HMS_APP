@@ -52,6 +52,7 @@ namespace ConsoleApp2
             visitCount[lastPatientIndex] = 1;
             billingAmount[lastPatientIndex] = 0;
 
+
             //  MENU 
             while (true)
             {
@@ -66,8 +67,15 @@ namespace ConsoleApp2
                 Console.WriteLine("8. Search by Department");
                 Console.WriteLine("9. Billing Report");
                 Console.WriteLine("10. Exit");
-
-                int choice = int.Parse(Console.ReadLine());
+                int choice = 0;
+                try
+                {
+                    choice = int.Parse(Console.ReadLine());
+                }
+                catch (FormatException)
+                {  
+                    Console.WriteLine("Invalid input. Please choose a number from 1 to 10");
+                }
 
                 //  SWITCH
                 switch (choice)
@@ -160,17 +168,35 @@ namespace ConsoleApp2
                             double total = 0;
 
                             Console.Write("Consultation fee? (yes/no): ");
+
                             if (Console.ReadLine().ToLower() == "yes")
                             {
-                                double fee = double.Parse(Console.ReadLine());
+                                double fee = 0;
+                                try
+                                {
+                                    fee = Convert.ToDouble(Console.ReadLine());
+                                }
+                                catch(FormatException)
+                                {
+                                    Console.WriteLine("Invalid amount. Please enter a valid number");
+                                }
+
                                 total += fee;
                             }
 
                             Console.Write("Medication charges? (yes/no): ");
                             if (Console.ReadLine().ToLower() == "yes")
                             {
-                                double med = double.Parse(Console.ReadLine());
-                                total += med;
+                                double meds = 0;
+                                try
+                                {
+                                    meds = double.Parse(Console.ReadLine());
+                                }
+                                catch(FormatException)
+                                {
+                                    Console.WriteLine("Invalid amount. Please enter a valid number");
+                                }
+                                total += meds;
                             }
 
                             billingAmount[index] += total;
@@ -308,9 +334,16 @@ namespace ConsoleApp2
                         Console.WriteLine("1. Total System");
                         Console.WriteLine("2. Individual");
 
-                        int opt = int.Parse(Console.ReadLine());
-
-                        if (opt == 1)
+                        int billingOption = 0;
+                        try
+                        {
+                            billingOption = int.Parse(Console.ReadLine());
+                        }
+                        catch(FormatException)
+                        {
+                            Console.WriteLine("Invalid input. Please enter 1 or 2");
+                        }
+                        if (billingOption == 1)
                         {
                             double sum = 0;
                             for (int i = 0; i <= lastPatientIndex; i++)

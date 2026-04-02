@@ -1,5 +1,6 @@
 ﻿
 
+using System.ComponentModel.Design;
 using System.Xml.Linq;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -274,22 +275,32 @@ namespace ConsoleApp2
                                     }
                                 }
 
-                                if (index == -1)
-                                {
-                                    Console.WriteLine("Not found");
-                                }
-                                else
-                                {
-                                    Console.WriteLine(patientNames[index]);
-                                    Console.WriteLine(patientIDs[index]);
-                                    Console.WriteLine(diagnoses[index]);
-                                    Console.WriteLine(departments[index]);
-                                    Console.WriteLine("Visits: " + visitCount[index]);
-                                    Console.WriteLine("Billing: " + billingAmount[index]);
+                        if (index == -1)
+                        {
+                            Console.WriteLine("Not found");
+                        }
+                        else
+                        {
+                            Console.WriteLine(patientNames[index]);
+                            Console.WriteLine(patientIDs[index]);
+                            Console.WriteLine(diagnoses[index]);
+                            Console.WriteLine(departments[index]);
+                            Console.WriteLine("Visits: " + visitCount[index]);
+                            Console.WriteLine("Billing: " + billingAmount[index]);
 
-                                    if (admitted[index])
-                                        Console.WriteLine("Doctor: " + assignedDoctors[index]);
-                                }
+
+                            // Problem in Case 4: Assigned doctor is shown even when patient is not admitted 
+                            // Add a condition to display doctor name only if the patient is admitted, otherwise show a clear message
+
+                            if (admitted[index])
+                            {
+                                Console.WriteLine("Doctor: " + assignedDoctors[index]);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Patient is not currently admitted");
+                            }
+                        }
                                 break;
 
                             // 5️ LIST ADMITTED

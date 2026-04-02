@@ -305,20 +305,37 @@ namespace ConsoleApp2
 
                             // 5️ LIST ADMITTED
                             case 5:
-                                bool found = false;
 
-                                for (int i = 0; i <= lastPatientIndex; i++)
+                        // Problem in Case 5: No total count of admitted patients is shown 
+                        // Add a counter to track how many admitted patients are listed and display the total at the end
+                        bool found = false;
+
+                        for (int k = 0; k <= lastPatientIndex; k++)
+                        {
+                             found = false;
+                            int count = 0; 
+
+                            for (int i = 0; i <= lastPatientIndex; i++)
+                            {
+                                if (admitted[i])
                                 {
-                                    if (admitted[i])
-                                    {
-                                        found = true;
-                                        Console.WriteLine(patientNames[i] + " - " + assignedDoctors[i]);
-                                    }
-                                }
+                                    found = true;
+                                    count++; 
 
-                                if (!found)
-                                    Console.WriteLine("No patients admitted");
-                                break;
+                                    Console.WriteLine(patientNames[i] + " - " + assignedDoctors[i]);
+                                }
+                            }
+
+                            if (!found)
+                            {
+                                Console.WriteLine("No patients admitted");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Total admitted patients: " + count); 
+                            }
+                        }
+                            break;
 
                             // 6️ TRANSFER
                             case 6:

@@ -184,53 +184,66 @@ namespace ConsoleApp2
                                     }
                                 }
 
-                                if (index == -1)
-                                {
-                                    Console.WriteLine("Patient not found");
-                                }
-                                else if (!admitted[index])
-                                {
-                                    Console.WriteLine("Not currently admitted");
-                                }
-                                else
-                                {
-                                    double total = 0;
+                        if (index == -1)
+                        {
+                            Console.WriteLine("Patient not found");
+                        }
+                        else if (!admitted[index])
+                        {
+                            Console.WriteLine("Not currently admitted");
+                        }
+                        else
+                        {
+                            double total = 0;
 
-                                    Console.Write("Consultation fee? (yes/no): ");
+                            Console.Write("Consultation fee? (yes/no): ");
 
-                                    if (Console.ReadLine().ToLower() == "yes")
+                            if (Console.ReadLine().ToLower() == "yes")
+                            {
+
+                                // PART 1 — Error Handling ( try-catch )
+                                // Problem in Case 3: Invalid fee values (zero or negative) are accepted 
+                                // Add a condition to check that the amount is greater than zero before adding to billing
+                                double fee = 0;
+                                try
+                                {
+                                    fee = double.Parse(Console.ReadLine());
+
+                                    if (fee > 0)
                                     {
-
-                                        // PART 1 — Error Handling ( try-catch )
-
-                                        double fee = 0;
-                                        try
-                                        {
-                                            fee = Convert.ToDouble(Console.ReadLine());
-                                        }
-                                        catch (FormatException)
-                                        {
-                                            Console.WriteLine("Invalid amount. Please enter a valid number");
-                                        }
-
                                         total += fee;
                                     }
-
-                                    //PART 1 — Error Handling( try-catch )
-
-                                    Console.Write("Medication charges? (yes/no): ");
-                                    if (Console.ReadLine().ToLower() == "yes")
+                                    else
                                     {
-                                        double meds = 0;
-                                        try
+                                        Console.WriteLine("Invalid amount. Must be greater than zero.");
+                                    }
+                                }
+                                catch (FormatException)
+                                {
+                                    Console.WriteLine("Invalid amount. Please enter a valid number.");
+                                }
+
+                                //PART 1 — Error Handling( try-catch )
+
+                                Console.Write("Medication charges? (yes/no): ");
+                                if (Console.ReadLine().ToLower() == "yes")
+                                {
+                                    double meds = 0;
+                                    try
+                                    {
+                                        meds = double.Parse(Console.ReadLine());
+                                        if (meds > 0)
                                         {
-                                            meds = double.Parse(Console.ReadLine());
+                                            total += meds;
                                         }
-                                        catch (FormatException)
+                                        else
                                         {
-                                            Console.WriteLine("Invalid amount. Please enter a valid number");
+                                            Console.WriteLine("Invalid amount. Must be greater than zero.");
                                         }
-                                        total += meds;
+                                    }
+                                    catch (FormatException)
+                                    {
+                                        Console.WriteLine("Invalid amount. Please enter a valid number.");
                                     }
 
 
@@ -242,6 +255,8 @@ namespace ConsoleApp2
                                     Console.WriteLine("Total added: " + total + " OMR");
                                     Console.WriteLine("Discharged successfully");
                                 }
+                            }
+                        }
                                 break;
 
                             // 4️ SEARCH

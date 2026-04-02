@@ -339,27 +339,36 @@ namespace ConsoleApp2
 
                             // 6️ TRANSFER
                             case 6:
-                                Console.Write("Current Doctor: ");
+
+                        // Problem in Case 6: Multiple patients are transferred instead of only one 
+                        // Add a break to stop after the first match, and check that doctor names are not the same before transfer
+                        Console.Write("Current Doctor: ");
                                 string current = Console.ReadLine();
 
                                 Console.Write("New Doctor: ");
                                 string newDoc = Console.ReadLine();
+                        if (current == newDoc)
+                        {
+                            Console.WriteLine("Doctor names must be different");
+                        }
+                        else
+                        {
+                            bool transferred = false;
 
-                                bool transferred = false;
-
-                                for (int i = 0; i <= lastPatientIndex; i++)
+                            for (int i = 0; i <= lastPatientIndex; i++)
+                            {
+                                if (assignedDoctors[i] == current && admitted[i])
                                 {
-                                    if (assignedDoctors[i] == current && admitted[i])
-                                    {
-                                        assignedDoctors[i] = newDoc;
-                                        Console.WriteLine("Transferred " + patientNames[i]);
-                                        transferred = true;
-                                        break;
-                                    }
+                                    assignedDoctors[i] = newDoc;
+                                    Console.WriteLine("Transferred " + patientNames[i]);
+                                    transferred = true;
+                                    break;
                                 }
+                            }
 
-                                if (!transferred)
-                                    Console.WriteLine("No patient found");
+                            if (!transferred)
+                                Console.WriteLine("No patient found");
+                        }
                                 break;
 
                             // 7️ SORT VISITS

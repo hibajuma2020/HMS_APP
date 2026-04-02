@@ -1,5 +1,6 @@
 ﻿
 
+using System.Xml.Linq;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ConsoleApp2
@@ -87,20 +88,32 @@ namespace ConsoleApp2
                 {
                     // 1️ REGISTER
                     case 1:
-                        lastPatientIndex++;
 
-                        Console.Write("Name: ");
-                        patientNames[lastPatientIndex] = Console.ReadLine();
+                        Console.Write("Names: ");
+                        string Names = Console.ReadLine();
 
                         Console.Write("ID: ");
-                        patientIDs[lastPatientIndex] = Console.ReadLine();
+                        string ID = Console.ReadLine();
 
                         Console.Write("Diagnosis: ");
-                        diagnoses[lastPatientIndex] = Console.ReadLine();
+                        string diagnosis = Console.ReadLine();
 
                         Console.Write("Department: ");
-                        departments[lastPatientIndex] = Console.ReadLine();
+                        string department = Console.ReadLine();
 
+                        // Problem 1 in case1: lastPatientIndex++ is in the wrong place
+                        // Put the input first, then add the index
+
+                        lastPatientIndex++;
+
+                        //Second problem in case1: Incorrect ID P0010 
+                        //The correct answer always 3 digits
+                        string newID = "P" + (lastPatientIndex + 1).ToString("D3");
+                        
+                        patientNames[lastPatientIndex] = Names;
+                        patientIDs[lastPatientIndex] = newID;
+                        diagnoses[lastPatientIndex] = diagnosis;
+                        departments[lastPatientIndex] = department;
                         admitted[lastPatientIndex] = false;
                         assignedDoctors[lastPatientIndex] = "";
                         visitCount[lastPatientIndex] = 0;

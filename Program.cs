@@ -168,22 +168,22 @@ namespace ConsoleApp2
                                 Console.WriteLine("Admitted " + visitCount[index] + " times");
                             }
                         }
-                            break;
+                        break;
 
                     // 3️ DISCHARGE
                     case 3:
-                                Console.Write("Enter ID or Name: ");
-                                search = Console.ReadLine();
+                        Console.Write("Enter ID or Name: ");
+                        search = Console.ReadLine();
 
-                                index = -1;
-                                for (int i = 0; i <= lastPatientIndex; i++)
-                                {
-                                    if (patientIDs[i] == search || patientNames[i] == search)
-                                    {
-                                        index = i;
-                                        break;
-                                    }
-                                }
+                        index = -1;
+                        for (int i = 0; i <= lastPatientIndex; i++)
+                        {
+                            if (patientIDs[i] == search || patientNames[i] == search)
+                            {
+                                index = i;
+                                break;
+                            }
+                        }
 
                         if (index == -1)
                         {
@@ -258,22 +258,22 @@ namespace ConsoleApp2
                                 }
                             }
                         }
+                        break;
+
+                    // 4️ SEARCH
+                    case 4:
+                        Console.Write("Enter ID or Name: ");
+                        search = Console.ReadLine();
+
+                        index = -1;
+                        for (int i = 0; i <= lastPatientIndex; i++)
+                        {
+                            if (patientIDs[i] == search || patientNames[i] == search)
+                            {
+                                index = i;
                                 break;
-
-                            // 4️ SEARCH
-                            case 4:
-                                Console.Write("Enter ID or Name: ");
-                                search = Console.ReadLine();
-
-                                index = -1;
-                                for (int i = 0; i <= lastPatientIndex; i++)
-                                {
-                                    if (patientIDs[i] == search || patientNames[i] == search)
-                                    {
-                                        index = i;
-                                        break;
-                                    }
-                                }
+                            }
+                        }
 
                         if (index == -1)
                         {
@@ -301,10 +301,10 @@ namespace ConsoleApp2
                                 Console.WriteLine("Patient is not currently admitted");
                             }
                         }
-                                break;
+                        break;
 
-                            // 5️ LIST ADMITTED
-                            case 5:
+                    // 5️ LIST ADMITTED
+                    case 5:
 
                         // Problem in Case 5: No total count of admitted patients is shown 
                         // Add a counter to track how many admitted patients are listed and display the total at the end
@@ -312,15 +312,15 @@ namespace ConsoleApp2
 
                         for (int k = 0; k <= lastPatientIndex; k++)
                         {
-                             found = false;
-                            int count = 0; 
+                            found = false;
+                            int count = 0;
 
                             for (int i = 0; i <= lastPatientIndex; i++)
                             {
                                 if (admitted[i])
                                 {
                                     found = true;
-                                    count++; 
+                                    count++;
 
                                     Console.WriteLine(patientNames[i] + " - " + assignedDoctors[i]);
                                 }
@@ -332,21 +332,21 @@ namespace ConsoleApp2
                             }
                             else
                             {
-                                Console.WriteLine("Total admitted patients: " + count); 
+                                Console.WriteLine("Total admitted patients: " + count);
                             }
                         }
-                            break;
+                        break;
 
-                            // 6️ TRANSFER
-                            case 6:
+                    // 6️ TRANSFER
+                    case 6:
 
                         // Problem in Case 6: Multiple patients are transferred instead of only one 
                         // Add a break to stop after the first match, and check that doctor names are not the same before transfer
                         Console.Write("Current Doctor: ");
-                                string current = Console.ReadLine();
+                        string current = Console.ReadLine();
 
-                                Console.Write("New Doctor: ");
-                                string newDoc = Console.ReadLine();
+                        Console.Write("New Doctor: ");
+                        string newDoc = Console.ReadLine();
                         if (current == newDoc)
                         {
                             Console.WriteLine("Doctor names must be different");
@@ -369,51 +369,58 @@ namespace ConsoleApp2
                             if (!transferred)
                                 Console.WriteLine("No patient found");
                         }
-                                break;
+                        break;
 
-                            // 7️ SORT VISITS
-                            case 7:
-                                for (int i = 0; i <= lastPatientIndex; i++)
+                    // 7️ SORT VISITS
+                    case 7:
+                        for (int i = 0; i <= lastPatientIndex; i++)
+                        {
+                            for (int j = i + 1; j <= lastPatientIndex; j++)
+                            {
+                                if (visitCount[j] > visitCount[i])
                                 {
-                                    for (int j = i + 1; j <= lastPatientIndex; j++)
-                                    {
-                                        if (visitCount[j] > visitCount[i])
-                                        {
-                                            // swap
-                                            (visitCount[i], visitCount[j]) = (visitCount[j], visitCount[i]);
-                                            (patientNames[i], patientNames[j]) = (patientNames[j], patientNames[i]);
-                                            (patientIDs[i], patientIDs[j]) = (patientIDs[j], patientIDs[i]);
-                                            (diagnoses[i], diagnoses[j]) = (diagnoses[j], diagnoses[i]);
-                                            (departments[i], departments[j]) = (departments[j], departments[i]);
-                                        }
-                                    }
+                                    // swap
+                                    (visitCount[i], visitCount[j]) = (visitCount[j], visitCount[i]);
+                                    (patientNames[i], patientNames[j]) = (patientNames[j], patientNames[i]);
+                                    (patientIDs[i], patientIDs[j]) = (patientIDs[j], patientIDs[i]);
+                                    (diagnoses[i], diagnoses[j]) = (diagnoses[j], diagnoses[i]);
+                                    (departments[i], departments[j]) = (departments[j], departments[i]);
                                 }
+                            }
+                        }
 
-                                for (int i = 0; i <= lastPatientIndex; i++)
-                                {
-                                    Console.WriteLine(patientNames[i] + " - " + visitCount[i]);
-                                }
-                                break;
+                        for (int i = 0; i <= lastPatientIndex; i++)
+                        {
+                            Console.WriteLine(patientNames[i] + " - " + visitCount[i]);
+                        }
+                        break;
 
-                            // 8️ SEARCH DEPARTMENT
-                            case 8:
-                                Console.Write("Department: ");
-                                string dept = Console.ReadLine().ToLower();
+                    // 8️ SEARCH DEPARTMENT
+                    case 8:
+                        { 
+                        // Problem in Case 8: Department search requires exact match 
+                        // Change to use Contains() for partial matching and keep it case-insensitive
 
-                                bool deptFound = false;
+                        Console.Write("Department: ");
+                        string dept = Console.ReadLine().ToLower();
 
-                                for (int i = 0; i <= lastPatientIndex; i++)
-                                {
-                                    if (departments[i].ToLower() == dept)
-                                    {
-                                        deptFound = true;
-                                        Console.WriteLine(patientNames[i] + " - " +
-                                            (admitted[i] ? "Admitted" : "Not Admitted"));
-                                    }
-                                }
+                        bool deptFound = false;
 
-                                if (!deptFound)
-                                    Console.WriteLine("No patients found");
+                        for (int i = 0; i <= lastPatientIndex; i++)
+                        {
+                            if (departments[i].ToLower().Contains(dept))
+                            {
+                                deptFound = true;
+                                Console.WriteLine(patientNames[i] + " - " +
+                                    (admitted[i] ? "Admitted" : "Not Admitted"));
+                            }
+                        }
+                
+
+                if (!deptFound)
+                    Console.WriteLine("No patients found");
+            }
+        
                                 break;
 
                             // 9️ BILLING

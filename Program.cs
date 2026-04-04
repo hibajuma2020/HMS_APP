@@ -425,53 +425,68 @@ namespace ConsoleApp2
 
                             // 9️ BILLING
                             case 9:
-                                Console.WriteLine("1. Total System");
-                                Console.WriteLine("2. Individual");
+                        { 
+                        // Problem in Case 9: Invalid billing option gives no feedback 
+                        // Add an else block to handle invalid input (not 1 or 2)
+
+                        // Problem in Case 9: Zero billing amount is treated as a valid record 
+                        // Add a condition to treat billingAmount == 0 as no record
+                        
+                            Console.WriteLine("1. Total System");
+                            Console.WriteLine("2. Individual");
 
 
-                                // PART 1 — Error Handling ( try-catch )
+                            // PART 1 — Error Handling ( try-catch )
+                            int billingOption = 0;
 
-                                int billingOption = 0;
-                                try
+                            try
+                            {
+                                billingOption = int.Parse(Console.ReadLine());
+                            }
+                            catch (FormatException)
+                            {
+                                Console.WriteLine("Invalid input. Please enter 1 or 2.");
+                            }
+
+                            if (billingOption == 1)
+                            {
+                                double sum = 0;
+                                for (int i = 0; i <= lastPatientIndex; i++)
+                                    sum += billingAmount[i];
+
+                                Console.WriteLine("Total: " + sum + " OMR");
+                            }
+                            else if (billingOption == 2)
+                            {
+                                Console.Write("Enter ID or Name: ");
+                                string searchBilling = Console.ReadLine();
+                                int billingIndex = -1;
+
+                                for (int i = 0; i <= lastPatientIndex; i++)
                                 {
-                                    billingOption = int.Parse(Console.ReadLine());
+                                    if (patientIDs[i] == searchBilling || patientNames[i] == searchBilling)
+                                    {
+                                        billingIndex = i;
+                                        break;
+                                    }
                                 }
-                                catch (FormatException)
-                                {
-                                    Console.WriteLine("Invalid input. Please enter 1 or 2");
-                                }
-                                if (billingOption == 1)
-                                {
-                                    double sum = 0;
-                                    for (int i = 0; i <= lastPatientIndex; i++)
-                                        sum += billingAmount[i];
 
-                                    Console.WriteLine("Total: " + sum + " OMR");
+                                if (billingIndex == -1 || billingAmount[billingIndex] == 0)
+                                {
+                                    Console.WriteLine("No billing records");
                                 }
                                 else
                                 {
-                                    Console.Write("Enter ID or Name: ");
-                                    search = Console.ReadLine();
-
-                                    index = -1;
-                                    for (int i = 0; i <= lastPatientIndex; i++)
-                                    {
-                                        if (patientIDs[i] == search || patientNames[i] == search)
-                                        {
-                                            index = i;
-                                            break;
-                                        }
-                                    }
-
-                                    if (index == -1)
-                                        Console.WriteLine("No record");
-                                    else
-                                        Console.WriteLine("Billing: " + billingAmount[index]);
+                                    Console.WriteLine("Billing: " + billingAmount[billingIndex] + " OMR");
                                 }
-                                break;
-                            //10 EXIT
 
-                            case 10:
+                            }
+                        }
+                        break;
+
+                    //10 EXIT
+
+                    case 10:
                                 Console.WriteLine("Exiting system...");
                                 Console.WriteLine("Thank you!");
                                 break;

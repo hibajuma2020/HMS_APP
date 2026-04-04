@@ -58,7 +58,8 @@ namespace ConsoleApp2
 
 
             //  MENU 
-            while (true)
+            bool exit = false;
+            while (!exit)
             {
                 Console.WriteLine("\n Healthcare System ");
                 Console.WriteLine("1. Register New Patient");
@@ -397,41 +398,41 @@ namespace ConsoleApp2
 
                     // 8️ SEARCH DEPARTMENT
                     case 8:
-                        { 
-                        // Problem in Case 8: Department search requires exact match 
-                        // Change to use Contains() for partial matching and keep it case-insensitive
-
-                        Console.Write("Department: ");
-                        string dept = Console.ReadLine().ToLower();
-
-                        bool deptFound = false;
-
-                        for (int i = 0; i <= lastPatientIndex; i++)
                         {
-                            if (departments[i].ToLower().Contains(dept))
+                            // Problem in Case 8: Department search requires exact match 
+                            // Change to use Contains() for partial matching and keep it case-insensitive
+
+                            Console.Write("Department: ");
+                            string dept = Console.ReadLine().ToLower();
+
+                            bool deptFound = false;
+
+                            for (int i = 0; i <= lastPatientIndex; i++)
                             {
-                                deptFound = true;
-                                Console.WriteLine(patientNames[i] + " - " +
-                                    (admitted[i] ? "Admitted" : "Not Admitted"));
+                                if (departments[i].ToLower().Contains(dept))
+                                {
+                                    deptFound = true;
+                                    Console.WriteLine(patientNames[i] + " - " +
+                                        (admitted[i] ? "Admitted" : "Not Admitted"));
+                                }
                             }
+
+
+                            if (!deptFound)
+                                Console.WriteLine("No patients found");
                         }
-                
 
-                if (!deptFound)
-                    Console.WriteLine("No patients found");
-            }
-        
-                                break;
+                        break;
 
-                            // 9️ BILLING
-                            case 9:
-                        { 
-                        // Problem in Case 9: Invalid billing option gives no feedback 
-                        // Add an else block to handle invalid input (not 1 or 2)
+                    // 9️ BILLING
+                    case 9:
+                        {
+                            // Problem in Case 9: Invalid billing option gives no feedback 
+                            // Add an else block to handle invalid input (not 1 or 2)
 
-                        // Problem in Case 9: Zero billing amount is treated as a valid record 
-                        // Add a condition to treat billingAmount == 0 as no record
-                        
+                            // Problem in Case 9: Zero billing amount is treated as a valid record 
+                            // Add a condition to treat billingAmount == 0 as no record
+
                             Console.WriteLine("1. Total System");
                             Console.WriteLine("2. Individual");
 
@@ -487,22 +488,32 @@ namespace ConsoleApp2
                     //10 EXIT
 
                     case 10:
+                        // Problem in Case 10: Program exits immediately without confirmation 
+                        // Add a confirmation prompt and only exit if the user confirms
+                        {
+                            Console.Write("Are you sure you want to exit? (yes/no): ");
+                            string confirm = Console.ReadLine().ToLower();
+
+                            if (confirm == "yes")
+                            {
                                 Console.WriteLine("Exiting system...");
                                 Console.WriteLine("Thank you!");
-                                break;
-
-                            default:
-                                break;
+                                exit = true;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Exit cancelled. Returning to menu...");
                             }
 
-
-
-
-                            Console.WriteLine("press any key");
-                            Console.ReadLine();
-                            Console.Clear();
+                            break;
                         }
                 }
             }
         }
-    
+    }
+}
+                
+            
+       
+
+

@@ -19,6 +19,10 @@ namespace ConsoleApp2
             string[] departments = new string[100];
             int[] visitCount = new int[100];
             double[] billingAmount = new double[100];
+            string[] lastVisitDate = new string[100];
+            string[] lastDischargeDate = new string[100];
+            int[] daysInHospital = new int[100];
+            string[] bloodType = new string[100];
 
             int lastPatientIndex = -1;
 
@@ -33,6 +37,10 @@ namespace ConsoleApp2
             assignedDoctors[lastPatientIndex] = "";
             visitCount[lastPatientIndex] = 2;
             billingAmount[lastPatientIndex] = 0;
+            lastVisitDate[0] = "2025-01-10";
+            lastDischargeDate[0] = "2025-01-15";
+            daysInHospital[0] = 12;
+            bloodType[0] = "A+";
 
             lastPatientIndex++;
 
@@ -44,6 +52,10 @@ namespace ConsoleApp2
             assignedDoctors[lastPatientIndex] = "Dr. Noor";
             visitCount[lastPatientIndex] = 4;
             billingAmount[lastPatientIndex] = 0;
+            lastVisitDate[1] = "2025-03-02";
+            lastDischargeDate[1] = "";
+            daysInHospital[1] = 8;
+            bloodType[1] = "O-";
 
             lastPatientIndex++;
 
@@ -55,6 +67,10 @@ namespace ConsoleApp2
             assignedDoctors[lastPatientIndex] = "";
             visitCount[lastPatientIndex] = 1;
             billingAmount[lastPatientIndex] = 0;
+            lastVisitDate[2] = "2024-12-20";
+            lastDischargeDate[2] = "2024-12-28";
+            daysInHospital[2] = 5;
+            bloodType[2] = "B+";
 
 
             //  MENU 
@@ -90,10 +106,11 @@ namespace ConsoleApp2
                 {
                     // 1️ REGISTER
                     case 1:
-
-                        Console.Write("Names: ");
+                        // Problem in Case 1 (Part 3): Blood type not collected 
+                        // Add input for blood type and initialize new fields
+                        Console.Write("Names:");
                         string Names = Console.ReadLine();
-
+                        
                         Console.Write("ID: ");
                         string ID = Console.ReadLine();
 
@@ -103,10 +120,19 @@ namespace ConsoleApp2
                         Console.Write("Department: ");
                         string department = Console.ReadLine();
 
+                        Console.Write("Blood Type ");
+                        string bType = Console.ReadLine();
+
                         // Problem 1 in case1: lastPatientIndex++ is in the wrong place
                         // Put the input first, then add the index
 
                         lastPatientIndex++;
+                        bloodType[lastPatientIndex] = bType;
+
+                        // initialize new fields
+                        lastVisitDate[lastPatientIndex] = "";
+                        lastDischargeDate[lastPatientIndex] = "";
+                        daysInHospital[lastPatientIndex] = 0;
 
                         //Second problem in case1: Incorrect ID P0010 
                         //The correct answer always 3 digits
